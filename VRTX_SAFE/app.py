@@ -44,24 +44,41 @@ return f"""
     <html>
     <head>
         <style>
-            body {{ background: #000; color: #fff; font-family: sans-serif; text-align: center; padding: 50px 20px; }}
-            .container {{ max-width: 400px; margin: 0 auto; border: 1px solid #333; padding: 20px; border-radius: 15px; }}
-            .btn {{ display: block; background: #00ff00; color: #000; padding: 15px; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 20px; }}
-            .address {{ background: #111; padding: 10px; border-radius: 5px; word-break: break-all; color: #00ff00; font-family: monospace; margin: 15px 0; }}
+            body {{ background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 40px 20px; }}
+            .terminal {{ max-width: 450px; margin: 0 auto; border: 1px solid #00ff00; padding: 30px; border-radius: 20px; background: #050505; box-shadow: 0 0 30px rgba(0,255,0,0.1); }}
+            .amount-tag {{ font-size: 2em; color: #00ff00; margin: 20px 0; font-weight: bold; }}
+            .wallet-box {{ background: #111; padding: 15px; border-radius: 10px; word-break: break-all; color: #00ff00; font-family: monospace; font-size: 1.1em; margin: 20px 0; border: 1px dashed #333; cursor: pointer; }}
+            .instruction {{ text-align: left; font-size: 0.9em; color: #888; line-height: 1.5; }}
+            .copy-hint {{ font-size: 0.7em; color: #555; }}
         </style>
     </head>
     <body>
-        <div class="container">
-            <h2 style="color: #00ff00;">ПОЧТИ ГОТОВО</h2>
-            <p>Сумма к оплате: <b>{amount} руб.</b></p>
-            <p style="font-size: 0.9em; color: #888;">Скопируйте адрес и переведите USDT в приложении MAX:</p>
+        <div class="terminal">
+            <h2 style="letter-spacing: 3px;">ОПЛАТА ПРИНЯТА</h2>
+            <p>Ученик: {name}</p>
+            <div class="amount-tag">{amount} РУБ.</div>
             
-            <div class="address" id="addr">{MY_SAFE_ADDRESS}</div>
+            <hr style="border: 0; border-top: 1px solid #222; margin: 20px 0;">
             
-            <a href="https://max.ru/wallet/transfer?address={MY_SAFE_ADDRESS}&amount={amount}" class="btn">ОТКРЫТЬ В ПРИЛОЖЕНИИ</a>
+            <p class="instruction">1. Нажмите на адрес ниже, чтобы скопировать его:</p>
+            <div class="wallet-box" onclick="copyAddr()" id="addr">{MY_SAFE_ADDRESS}</div>
+            <p class="copy-hint">Нажмите для копирования</p>
             
-            <p style="margin-top: 20px; font-size: 0.8em; color: #555;">После оплаты доступ к курсу "Физика без мистики" откроется автоматически.</p>
+            <p class="instruction">2. Зайдите в <b>приложение MAX</b> и переведите сумму в USDT на этот адрес.</p>
+            
+            <p style="margin-top: 30px; font-size: 0.8em; color: #00ff00; opacity: 0.7;">
+                [ СИСТЕМА ЗАЩИТЫ КАРТЫ АКТИВИРОВАНА ]
+            </p>
         </div>
+
+        <script>
+            function copyAddr() {{
+                var text = document.getElementById("addr").innerText;
+                navigator.clipboard.writeText(text).then(function() {{
+                    alert("Адрес скопирован! Теперь просто вставьте его в кошельке MAX.");
+                }});
+            }}
+        </script>
     </body>
     </html>
     """

@@ -40,22 +40,28 @@ def pay():
     # Формируем прямую ссылку в кошелек MAX
     max_pay_url = f"https://max.ru/wallet/transfer?address={MY_SAFE_ADDRESS}&amount={amount}"
 
-    return f"""
+return f"""
     <html>
     <head>
-        <meta http-equiv="refresh" content="1;url={max_pay_url}">
         <style>
-            body {{ background: #000; color: #fff; font-family: sans-serif; text-align: center; padding-top: 150px; }}
-            .loader {{ border: 3px solid #222; border-top: 3px solid #00ff00; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 20px; }}
-            @keyframes spin {{ 0% {{ transform: rotate(0deg); }} 100% {{ transform: rotate(360deg); }} }}
+            body {{ background: #000; color: #fff; font-family: sans-serif; text-align: center; padding: 50px 20px; }}
+            .container {{ max-width: 400px; margin: 0 auto; border: 1px solid #333; padding: 20px; border-radius: 15px; }}
+            .btn {{ display: block; background: #00ff00; color: #000; padding: 15px; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 20px; }}
+            .address {{ background: #111; padding: 10px; border-radius: 5px; word-break: break-all; color: #00ff00; font-family: monospace; margin: 15px 0; }}
         </style>
     </head>
     <body>
-        <div class="loader"></div>
-        <p>ПЕРЕНАПРАВЛЯЕМ В MAX...</p>
-        <p>Для оплаты курса на сумму <b>{amount} руб.</b></p>
-        <br>
-        <a href="{max_pay_url}" style="color: #00ff00; text-decoration: none; font-size: 0.8em;">Нажмите здесь, если переход не начался</a>
+        <div class="container">
+            <h2 style="color: #00ff00;">ПОЧТИ ГОТОВО</h2>
+            <p>Сумма к оплате: <b>{amount} руб.</b></p>
+            <p style="font-size: 0.9em; color: #888;">Скопируйте адрес и переведите USDT в приложении MAX:</p>
+            
+            <div class="address" id="addr">{MY_SAFE_ADDRESS}</div>
+            
+            <a href="https://max.ru/wallet/transfer?address={MY_SAFE_ADDRESS}&amount={amount}" class="btn">ОТКРЫТЬ В ПРИЛОЖЕНИИ</a>
+            
+            <p style="margin-top: 20px; font-size: 0.8em; color: #555;">После оплаты доступ к курсу "Физика без мистики" откроется автоматически.</p>
+        </div>
     </body>
     </html>
     """

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V-rtx Safe Node | Payment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="payment-card">
+        <h2>ФИЗИКА БЕЗ МИСТИКИ</h2>
+        <p>Пополнение учебного баланса</p>
+        <form action="/pay" method="post">
+            <input type="text" name="name" placeholder="Имя ученика" required>
+            <input type="number" name="amount" placeholder="Сумма (RUB)" required>
+            <button type="submit">ОПЛАТИТЬ ЧЕРЕЗ СБП</button>
+        </form>
+        <div class="footer">SECURE NODE: {{ wallet_address[:6] }}...{{ wallet_address[-4:] }}</div>
+    </div>
+</body>
+</html>

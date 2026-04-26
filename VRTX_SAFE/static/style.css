@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Твоя темная картинка из папки static */
+    background: url('/static/bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    background-color: #000; /* Резервный фон, если картинка не подгрузится */
+}
+
+.payment-card{
+    /* Эффект матового светлого стекла (Glassmorphism) */
+    background: rgba(255, 255, 255, 0.12); 
+    backdrop-filter: blur(15px); /* То самое размытие фона за формой */
+    -webkit-backdrop-filter: blur(15px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 40px;
+    width: 380px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+    text-align: center;
+    color: #ffffff;
+}
+
+h1 {
+    font-size: 26px;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+p {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-bottom: 30px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: white;
+    box-sizing: border-box; 
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+button {
+    width: 100%;
+    padding: 16px;
+    background: #00ff88; /* Твой фирменный зеленый */
+    border: none;
+    border-radius: 10px;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.4s;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #00e67a;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+}
+
+.secure-node {
+    margin-top: 25px;
+    font-size: 10px;
+    text-transform: uppercase;
+    opacity: 0.4;
+    letter-spacing: 1px;
+}

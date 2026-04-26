@@ -9,7 +9,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # Твой адрес-сейф
-MY_SAFE_ADDRESS = "TGGXbG9qgdZGtK9EumggB7HAXiNXNd7aGf"
+MY_SAFE_ADDRESS = "TMh9n9rAoBurQGHVTWANBzxn6DJqXpyM2G"
 
 # Модель базы данных для учета платежей
 class Payment(db.Model):

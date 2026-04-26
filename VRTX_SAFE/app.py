@@ -38,7 +38,11 @@ def pay():
     # Временно просто перенаправляем обратно, пока не подключили шлюз
     return redirect("https://app.lava.top/products/3496f22d-1e2b-41bf-9b7d-55d53558f826")
 
+import os
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(debug=True, port=5000)
+    # Забираем порт, который даст Render, или используем 5000 как запасной
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)

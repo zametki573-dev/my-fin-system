@@ -27,16 +27,23 @@ def index():
 def pay():
     name = request.form.get('name')
     amount = request.form.get('amount')
-    
-    # Сохраняем попытку оплаты в базу (наш "бухгалтер" записывает всё)
+
+    # 1. Записываем в базу (твой "цифровой журнал")
     new_payment = Payment(student_name=name, amount_rub=float(amount))
     db.session.add(new_payment)
     db.session.commit()
+
+    # 2. Твой API-ключ от MAX (возьми его в личном кабинете MAX)
+    MAX_API_KEY = "TMh9n9rAoBurQGHVTWANBzxn6DJqXpyM2G"
+
+    # 3. Формируем прямую ссылку на оплату через шлюз MAX
+    # Она отправит деньги на твой адрес TMh..., который ты указала выше
+    payment_link = f"https://api.max-pay.com/v1/create?api_key={MAX_API_KEY}&amount={amount}&description=Payment_from_{name}&wallet={MY_SAFE_ADDRESS}"
+
+    print(f"DEBUG: Ученик {name} направлен на оплату {amount} руб.")
     
-    print(f"DEBUG: Ученик {name} хочет оплатить {amount} руб.")
-    
-    # Временно просто перенаправляем обратно, пока не подключили шлюз
-    return redirect("https://app.lava.top/products/3496f22d-1e2b-41bf-9b7d-55d53558f826")
+    # 4. Перенаправляем ученика по этой ссылке
+    return redirect(payment_link)
 
 import os
 

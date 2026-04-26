@@ -43,38 +43,37 @@ def pay():
 return f"""
     <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
-            body {{ background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 40px 20px; }}
-            .card {{ max-width: 400px; margin: 0 auto; border: 1px solid #00ff00; padding: 30px; border-radius: 20px; background: #080808; box-shadow: 0 0 25px rgba(0,255,0,0.1); }}
-            .amount {{ font-size: 2.5em; color: #00ff00; margin: 15px 0; font-weight: bold; }}
-            .address-box {{ background: #111; padding: 15px; border-radius: 10px; word-break: break-all; color: #00ff00; font-family: monospace; font-size: 1.1em; margin: 20px 0; border: 1px dashed #444; cursor: pointer; }}
-            .btn {{ display: inline-block; background: #00ff00; color: #000; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 10px; border: none; cursor: pointer; }}
-            .step {{ text-align: left; font-size: 0.9em; color: #888; margin-bottom: 10px; }}
+            body {{ background: #000; color: #fff; font-family: sans-serif; text-align: center; padding: 50px 20px; }}
+            .card {{ max-width: 420px; margin: 0 auto; border: 1px solid #00ff00; padding: 30px; border-radius: 20px; background: #0a0a0a; box-shadow: 0 0 20px rgba(0,255,0,0.1); }}
+            .wallet-addr {{ background: #111; padding: 15px; border-radius: 10px; word-break: break-all; color: #00ff00; font-family: monospace; font-size: 1.2em; margin: 20px 0; border: 1px dashed #333; }}
+            .btn {{ background: #00ff00; color: #000; padding: 15px 30px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1em; }}
         </style>
     </head>
     <body>
         <div class="card">
-            <div style="font-size: 0.8em; color: #00ff00; letter-spacing: 2px;">VRTX_SAFE SYSTEM</div>
-            <div class="amount">{amount} РУБ.</div>
+            <h2 style="color: #00ff00;">ДАННЫЕ ДЛЯ ПЕРЕВОДА</h2>
+            <p>Сумма: <b>{amount} РУБ.</b></p>
             
-            <hr style="border: 0; border-top: 1px solid #222; margin: 20px 0;">
+            <p style="font-size: 0.9em; color: #888; margin-top: 20px;">Скопируйте адрес кошелька:</p>
+            <div class="wallet-addr" id="addr_text">{MY_SAFE_ADDRESS}</div>
             
-            <div class="step">1. Нажмите на адрес, чтобы скопировать:</div>
-            <div class="address-box" onclick="copyAddr()" id="target">{MY_SAFE_ADDRESS}</div>
+            <button class="btn" onclick="copy()">СКОПИРОВАТЬ И ПЕРЕЙТИ В MAX</button>
             
-            <button class="btn" onclick="copyAddr()">СКОПИРОВАТЬ АДРЕС</button>
-            
-            <div class="step" style="margin-top: 30px;">2. Откройте <b>MAX Wallet</b> и переведите сумму в USDT на этот адрес.</div>
-            
-            <p style="font-size: 0.7em; color: #444; margin-top: 30px;">ТРАНЗАКЦИЯ ЗАЩИЩЕНА ОБЛАЧНЫМ ШИФРОВАНИЕМ</p>
+            <p style="margin-top: 30px; font-size: 0.8em; color: #444; text-align: left;">
+                <b>Инструкция:</b><br>
+                1. Нажмите кнопку выше.<br>
+                2. Откройте приложение <b>MAX</b>.<br>
+                3. Перейдите в кошелек и выберите "Отправить".<br>
+                4. Вставьте скопированный адрес.
+            </p>
         </div>
-
         <script>
-            function copyAddr() {{
-                var t = document.getElementById("target").innerText;
+            function copy() {{
+                var t = document.getElementById("addr_text").innerText;
                 navigator.clipboard.writeText(t);
-                alert("Адрес скопирован! Теперь вставьте его в кошельке MAX.");
+                alert("Адрес скопирован! Теперь просто вставьте его в приложении MAX.");
+                window.location.href = "https://max.ru/"; // Просто открываем главную сайта
             }}
         </script>
     </body>

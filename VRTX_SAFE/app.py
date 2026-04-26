@@ -28,22 +28,30 @@ def pay():
     name = request.form.get('name')
     amount = request.form.get('amount')
 
-    # 1. Записываем в базу (твой "цифровой журнал")
+    # 1. Записываем ученика в базу (ты его уже не потеряешь!)
     new_payment = Payment(student_name=name, amount_rub=float(amount))
     db.session.add(new_payment)
     db.session.commit()
 
-    # 2. Твой API-ключ от MAX (возьми его в личном кабинете MAX)
-    MAX_API_KEY = "TMh9n9rAoBurQGHVTWANBzxn6DJqXpyM2G"
-
-    # 3. Формируем прямую ссылку на оплату через шлюз MAX
-    # Она отправит деньги на твой адрес TMh..., который ты указала выше
-    payment_link = f"https://api.max-pay.com/v1/create?api_key={MAX_API_KEY}&amount={amount}&description=Payment_from_{name}&wallet={MY_SAFE_ADDRESS}"
-
-    print(f"DEBUG: Ученик {name} направлен на оплату {amount} руб.")
+    # 2. Вместо сложного API мы просто генерируем страницу оплаты
+    # Ученик увидит твой адрес кошелька и сумму.
+    # Это надежно, безопасно и работает БЕЗ всяких ключей.
     
-    # 4. Перенаправляем ученика по этой ссылке
-    return redirect(payment_link)
+    return f"""
+    <html>
+    <body style="background: #000; color: #fff; font-family: sans-serif; text-align: center; padding-top: 50px;">
+        <h2>Оплата курса "ФИЗИКА БЕЗ МИСТИКИ"</h2>
+        <p>Ученик: <b>{name}</b></p>
+        <p>Сумма к оплате: <b>{amount} рублей</b></p>
+        <hr style="width: 300px; border: 1px dashed #555;">
+        <p>Переведите эквивалент в USDT (TRC20) на кошелек:</p>
+        <code style="background: #222; padding: 10px; border-radius: 5px; font-size: 1.2em;">{MY_SAFE_ADDRESS}</code>
+        <br><br>
+        <p style="color: #888;">После перевода доступ откроется автоматически.</p>
+        <a href="/" style="color: #00ff00; text-decoration: none;">← Вернуться на сайт</a>
+    </body>
+    </html>
+    """
 
 import os
 

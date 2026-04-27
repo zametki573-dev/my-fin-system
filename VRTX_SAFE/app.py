@@ -81,13 +81,12 @@ return f"""
         </div>
 
 <script>
-    function copyAndGo() {{
-        var t = document.getElementById("addr_text").innerText;
-        navigator.clipboard.writeText(t);
-        alert("Адрес скопирован! Сейчас вы будете перенаправлены в шлюз оплаты.");
-        // Прямой переход по номеру телефона
-        window.location.href = "https://max.ru/tt/37377782390"; 
-    }}
+    function copyAndGo() {
+        var addr = document.getElementById("addr_text").innerText;
+        navigator.clipboard.writeText(addr);
+        alert("Адрес скопирован! ✅\nСейчас откроется чат в MAX: нажмите на иконку кошелька и вставьте адрес.");
+        window.location.href = "https://max.ru/tt/37377782390";
+    }
 </script>
     </body>
     </html>

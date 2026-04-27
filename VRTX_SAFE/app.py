@@ -82,10 +82,17 @@ return f"""
 
 <script>
     function copyAndGo() {
+        // Берем адрес кошелька со страницы
         var addr = document.getElementById("addr_text").innerText;
+        // Берем сумму (она у тебя там в HTML где-то выводится)
+        var amount = "{{ total_price }}"; // Flask подставит сюда реальную цифру
+
         navigator.clipboard.writeText(addr);
-        alert("Адрес скопирован! ✅\nСейчас откроется чат в MAX: нажмите на иконку кошелька и вставьте адрес.");
-        window.location.href = "https://max.ru/tt/37377782390";
+        
+        alert("Данные скопированы! Переходим к оплате на сумму: " + amount);
+
+        // Формируем динамическую ссылку
+        window.location.href = "https://max.ru/wallet/transfer?address=" + addr + "&amount=" + amount;
     }
 </script>
     </body>

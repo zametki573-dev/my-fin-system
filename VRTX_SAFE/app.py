@@ -38,7 +38,7 @@ def pay():
     # Это надежно, безопасно и работает БЕЗ всяких ключей.
     
     # Формируем прямую ссылку в кошелек MAX
-    max_pay_url = "https://max.ru/tt/SecurePayment"  # Замени ТВОЙ_НИК на тот, что создала
+    max_pay_url = "https://max.ru/u/f9LHodD0cOKtoj9aZYXfR4p7Mi4KcG3JFut6tTZWK1SOfm0KYqb53mv6CLY"  # Замени ТВОЙ_НИК на тот, что создала
 
 return f"""
     <html>

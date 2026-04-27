@@ -43,42 +43,63 @@ def pay():
 return f"""
     <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
-            body {{ background: #000; color: #fff; font-family: sans-serif; text-align: center; padding: 50px 20px; }}
+            body {{ background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 40px 20px; }}
             .card {{ max-width: 420px; margin: 0 auto; border: 1px solid #00ff00; padding: 30px; border-radius: 20px; background: #0a0a0a; box-shadow: 0 0 20px rgba(0,255,0,0.1); }}
-            .wallet-addr {{ background: #111; padding: 15px; border-radius: 10px; word-break: break-all; color: #00ff00; font-family: monospace; font-size: 1.2em; margin: 20px 0; border: 1px dashed #333; }}
-            .btn {{ background: #00ff00; color: #000; padding: 15px 30px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1em; }}
+            .amount {{ font-size: 2.5em; color: #00ff00; margin: 15px 0; font-weight: bold; }}
+            .wallet-addr {{ background: #111; padding: 15px; border-radius: 10px; word-break: break-all; color: #00ff00; font-family: monospace; font-size: 1.2em; margin: 20px 0; border: 1px dashed #333; cursor: pointer; }}
+            .btn {{ background: #00ff00; color: #000; padding: 15px 30px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.1em; text-transform: uppercase; margin-bottom: 10px; }}
+            .btn:hover {{ background: #00cc00; }}
+            .step {{ text-align: left; font-size: 0.9em; color: #888; margin-bottom: 10px; }}
+            hr {{ border: 0; border-top: 1px solid #222; margin: 20px 0; }}
         </style>
     </head>
     <body>
         <div class="card">
-            <h2 style="color: #00ff00;">ДАННЫЕ ДЛЯ ПЕРЕВОДА</h2>
-            <p>Сумма: <b>{amount} РУБ.</b></p>
+            <div style="font-size: 0.8em; color: #00ff00; letter-spacing: 2px; margin-bottom: 10px;">VRTX_SAFE SYSTEM</div>
+            <h2 style="color: #fff; margin: 0;">ДАННЫЕ ДЛЯ ПЕРЕВОДА</h2>
+            <div class="amount">{amount} РУБ.</div>
             
-            <p style="font-size: 0.9em; color: #888; margin-top: 20px;">Скопируйте адрес кошелька:</p>
-            <div class="wallet-addr" id="addr_text">{MY_SAFE_ADDRESS}</div>
+            <hr>
             
-            <button class="btn" onclick="copy()">СКОПИРОВАТЬ И ПЕРЕЙТИ В MAX</button>
+            <div class="step">1. Нажмите на адрес, чтобы скопировать:</div>
+            <div class="wallet-addr" onclick="copyOnly()" id="addr_text">{MY_SAFE_ADDRESS}</div>
             
-            <p style="margin-top: 30px; font-size: 0.8em; color: #444; text-align: left;">
+            <div class="step">2. Перейдите в шлюз оплаты:</div>
+            <button class="btn" onclick="copyAndGo()">СКОПИРОВАТЬ И ПЕРЕЙТИ В MAX</button>
+            
+            <p style="font-size: 0.7em; color: #444; margin-top: 30px; text-transform: uppercase;">Транзакция защищена облачным шифрованием V-RTX</p>
+            
+            <div style="margin-top: 30px; font-size: 0.85em; color: #666; text-align: left; background: #111; padding: 15px; border-radius: 10px;">
                 <b>Инструкция:</b><br>
-                1. Нажмите кнопку выше.<br>
-                2. Откройте приложение <b>MAX</b>.<br>
-                3. Перейдите в кошелек и выберите "Отправить".<br>
-                4. Вставьте скопированный адрес.
-            </p>
+                1. Нажмите зеленую кнопку.<br>
+                2. В открывшемся чате нажмите на иконку <b>Кошелька</b> 💰.<br>
+                3. Вставьте скопированный адрес и сумму.<br>
+                4. После перевода ваш статус в системе обновится автоматически.
+            </div>
         </div>
+
         <script>
-            function copy() {{
+            // Просто копирует адрес
+            function copyOnly() {{
                 var t = document.getElementById("addr_text").innerText;
                 navigator.clipboard.writeText(t);
-                alert("Адрес скопирован! Теперь просто вставьте его в приложении MAX.");
-                window.location.href = "https://max.ru/"; // Просто открываем главную сайта
+                alert("Адрес скопирован!");
+            }}
+
+            // Копирует и делает переход на твой "Шлюз"
+            function copyAndGo() {{
+                var t = document.getElementById("addr_text").innerText;
+                navigator.clipboard.writeText(t);
+                alert("Адрес скопирован! Сейчас вы будете перенаправлены в шлюз Secure Payment.");
+                // Твоя прямая ссылка на профиль
+                window.location.href = "https://max.ru/u/f9LHodD0cOJmnlCr5NwA3ln2sjFUv_m5WDrkMTux690g_VXvpX3O1SpBCAI";
             }}
         </script>
     </body>
     </html>
-    """
+"""
 
 import os
 

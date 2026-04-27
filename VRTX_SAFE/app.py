@@ -92,7 +92,7 @@ return f"""
         alert("Данные скопированы! Переходим к оплате на сумму: " + amount);
 
         // Формируем динамическую ссылку
-        window.location.href = "https://max.ru/wallet/transfer?address=" + addr + "&amount=" + amount;
+        window.location.href = "https://max.ru/u/f9LHodD0cOKtoj9aZYXfR4p7Mi4KcG3JFut6tTZWK1SOfm0KYqb53mv6CLY;
     }
 </script>
     </body>

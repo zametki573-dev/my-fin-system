@@ -80,24 +80,18 @@ return f"""
             </div>
         </div>
 
-        <script>
-            // Просто копирует адрес
-function copyAndGo() {{
-                var t = document.getElementById("addr_text").innerText;
-                navigator.clipboard.writeText(t);
-                alert("Адрес скопирован! Вы переходите в шлюз оплаты.");
-                window.location.href = "https://max.ru/tt/vrtx_pay"; 
-            }}
-
-            // Копирует и делает переход на твой "Шлюз"
-            function copyAndGo() {{
-                var t = document.getElementById("addr_text").innerText;
-                navigator.clipboard.writeText(t);
-                alert("Адрес скопирован! Сейчас вы будете перенаправлены в шлюз Secure Payment.");
-                // Твоя прямая ссылка на профиль
-                window.location.href = "https://max.ru/u/f9LHodD0cOJmnlCr5NwA3ln2sjFUv_m5WDrkMTux690g_VXvpX3O1SpBCAI";
-            }}
-        </script>
+       <script>
+    function copyAndGo() {{
+        // Находим текст кошелька
+        var t = document.getElementById("addr_text").innerText;
+        // Копируем его в буфер обмена
+        navigator.clipboard.writeText(t);
+        // Показываем уведомление
+        alert("Адрес скопирован! Сейчас вы будете перенаправлены в шлюз Secure Payment.");
+        // Переходим по короткой ссылке с твоим ником
+        window.location.href = "https://max.ru/tt/SecurePayment"; 
+    }}
+</script>
     </body>
     </html>
 """

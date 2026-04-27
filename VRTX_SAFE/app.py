@@ -21,7 +21,7 @@ class Payment(db.Model):
 @app.route('/')
 def index():
     # Отправляем адрес кошелька в HTML для отображения в футере
-    return render_template('index.html', wallet_address=https://max.ru/u/f9LHodD0cOKtoj9aZYXfR4p7Mi4KcG3JFut6tTZWK1SOfm0KYqb53mv6CLY)
+    return render_template('index.html', wallet_address = https://max.ru/u/f9LHodD0cOKtoj9aZYXfR4p7Mi4KcG3JFut6tTZWK1SOfm0KYqb53mv6CLY)
 
 @app.route('/pay/<int:amount>')
 def pay(amount):

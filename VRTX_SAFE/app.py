@@ -38,7 +38,7 @@ def pay():
     # Это надежно, безопасно и работает БЕЗ всяких ключей.
     
     # Формируем прямую ссылку в кошелек MAX
-    max_pay_url = f"https://max.ru/wallet/transfer?address={MY_SAFE_ADDRESS}&amount={amount}"
+    max_pay_url = f"max_pay_url = "https://max.ru/u/f9LHodD0cOJmnlCr5NwA3ln2sjFUv_m5WDrkMTux690g_VXvpX3O1SpBCAI""
 
 return f"""
     <html>

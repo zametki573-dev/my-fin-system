@@ -38,7 +38,7 @@ def pay():
     # Это надежно, безопасно и работает БЕЗ всяких ключей.
     
     # Формируем прямую ссылку в кошелек MAX
-    max_pay_url = "https://max.ru/u/f9LHodD0cOJmnlCr5NwA3ln2sjFUv_m5WDrkMTux690g_VXvpX3O1SpBCAI"
+    max_pay_url = "https://max.ru/tt/SecurePayment"  # Замени ТВОЙ_НИК на тот, что создала
 
 return f"""
     <html>
@@ -82,10 +82,11 @@ return f"""
 
         <script>
             // Просто копирует адрес
-            function copyOnly() {{
+function copyAndGo() {{
                 var t = document.getElementById("addr_text").innerText;
                 navigator.clipboard.writeText(t);
-                alert("Адрес скопирован!");
+                alert("Адрес скопирован! Вы переходите в шлюз оплаты.");
+                window.location.href = "https://max.ru/tt/vrtx_pay"; 
             }}
 
             // Копирует и делает переход на твой "Шлюз"

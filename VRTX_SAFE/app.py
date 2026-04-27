@@ -67,7 +67,9 @@ return f"""
             <div class="wallet-addr" onclick="copyOnly()" id="addr_text">{MY_SAFE_ADDRESS}</div>
             
             <div class="step">2. Перейдите в шлюз оплаты:</div>
-            <button class="btn" onclick="copyAndGo()">СКОПИРОВАТЬ И ПЕРЕЙТИ В MAX</button>
+            <a href="{{ pay_url }}" style="text-decoration: none;">
+    <button class="btn">ПЕРЕЙТИ К ОПЛАТЕ В MAX</button>
+</a>
             
             <p style="font-size: 0.7em; color: #444; margin-top: 30px; text-transform: uppercase;">Транзакция защищена облачным шифрованием V-RTX</p>
             

@@ -80,16 +80,13 @@ return f"""
             </div>
         </div>
 
-       <script>
+<script>
     function copyAndGo() {{
-        // Находим текст кошелька
         var t = document.getElementById("addr_text").innerText;
-        // Копируем его в буфер обмена
         navigator.clipboard.writeText(t);
-        // Показываем уведомление
-        alert("Адрес скопирован! Сейчас вы будете перенаправлены в шлюз Secure Payment.");
-        // Переходим по короткой ссылке с твоим ником
-        window.location.href = "https://max.ru/tt/SecurePayment"; 
+        alert("Адрес скопирован! Сейчас вы будете перенаправлены в шлюз оплаты.");
+        // Прямой переход по номеру телефона
+        window.location.href = "https://max.ru/tt/37377782390"; 
     }}
 </script>
     </body>

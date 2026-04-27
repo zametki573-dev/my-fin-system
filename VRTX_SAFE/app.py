@@ -23,83 +23,40 @@ def index():
     # Отправляем адрес кошелька в HTML для отображения в футере
     return render_template('index.html', wallet_address=MY_SAFE_ADDRESS)
 
-@app.route('/pay', methods=['POST'])
-def pay():
-    name = request.form.get('name')
-    amount = request.form.get('amount')
-
-    # 1. Записываем ученика в базу (ты его уже не потеряешь!)
-    new_payment = Payment(student_name=name, amount_rub=float(amount))
-    db.session.add(new_payment)
-    db.session.commit()
-
-    # 2. Вместо сложного API мы просто генерируем страницу оплаты
-    # Ученик увидит твой адрес кошелька и сумму.
-    # Это надежно, безопасно и работает БЕЗ всяких ключей.
+@app.route('/pay/<int:amount>')
+def pay(amount):
+    # Прямая ссылка на твой профиль с картинкой
+    pay_url = "https://max.ru/u/f9LHodD0cOKtoj9aZYXfR4p7Mi4KcG3JFut6tTZWK1SOfm0KYqb53mv6CLY"
     
-    # Формируем прямую ссылку в кошелек MAX
-    max_pay_url = "https://max.ru/u/f9LHodD0cOKtoj9aZYXfR4p7Mi4KcG3JFut6tTZWK1SOfm0KYqb53mv6CLY"  # Замени ТВОЙ_НИК на тот, что создала
-
-return f"""
+    return f"""
+    <!DOCTYPE html>
     <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
-            body {{ background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 40px 20px; }}
-            .card {{ max-width: 420px; margin: 0 auto; border: 1px solid #00ff00; padding: 30px; border-radius: 20px; background: #0a0a0a; box-shadow: 0 0 20px rgba(0,255,0,0.1); }}
-            .amount {{ font-size: 2.5em; color: #00ff00; margin: 15px 0; font-weight: bold; }}
-            .wallet-addr {{ background: #111; padding: 15px; border-radius: 10px; word-break: break-all; color: #00ff00; font-family: monospace; font-size: 1.2em; margin: 20px 0; border: 1px dashed #333; cursor: pointer; }}
-            .btn {{ background: #00ff00; color: #000; padding: 15px 30px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.1em; text-transform: uppercase; margin-bottom: 10px; }}
-            .btn:hover {{ background: #00cc00; }}
-            .step {{ text-align: left; font-size: 0.9em; color: #888; margin-bottom: 10px; }}
-            hr {{ border: 0; border-top: 1px solid #222; margin: 20px 0; }}
+            body {{ background: #000; color: #fff; font-family: sans-serif; text-align: center; padding: 40px 20px; }}
+            .card {{ max-width: 400px; margin: 0 auto; border: 1px solid #00FF00; padding: 30px; border-radius: 20px; }}
+            .btn {{ display: block; width: 100%; padding: 15px; background: #00FF00; color: #000; text-decoration: none; border-radius: 10px; font-weight: bold; margin-top: 20px; }}
+            .amount {{ font-size: 2.5em; color: #00FF00; margin: 20px 0; font-weight: bold; }}
         </style>
     </head>
     <body>
         <div class="card">
-            <div style="font-size: 0.8em; color: #00ff00; letter-spacing: 2px; margin-bottom: 10px;">VRTX_SAFE SYSTEM</div>
-            <h2 style="color: #fff; margin: 0;">ДАННЫЕ ДЛЯ ПЕРЕВОДА</h2>
+            <div style="font-size: 0.8em; color: #00FF00; letter-spacing: 2px;">VRTX_SAFE SYSTEM</div>
+            <h2>ОПЛАТА ОБУЧЕНИЯ</h2>
             <div class="amount">{amount} РУБ.</div>
-            
-            <hr>
-            
-            <div class="step">1. Нажмите на адрес, чтобы скопировать:</div>
-            <div class="wallet-addr" onclick="copyOnly()" id="addr_text">{MY_SAFE_ADDRESS}</div>
-            
-            <div class="step">2. Перейдите в шлюз оплаты:</div>
-            <a href="{{ pay_url }}" style="text-decoration: none;">
-    <button class="btn">ПЕРЕЙТИ К ОПЛАТЕ В MAX</button>
-</a>
-            
-            <p style="font-size: 0.7em; color: #444; margin-top: 30px; text-transform: uppercase;">Транзакция защищена облачным шифрованием V-RTX</p>
-            
-            <div style="margin-top: 30px; font-size: 0.85em; color: #666; text-align: left; background: #111; padding: 15px; border-radius: 10px;">
-                <b>Инструкция:</b><br>
-                1. Нажмите зеленую кнопку.<br>
-                2. В открывшемся чате нажмите на иконку <b>Кошелька</b> 💰.<br>
-                3. Вставьте скопированный адрес и сумму.<br>
-                4. После перевода ваш статус в системе обновится автоматически.
-            </div>
+            <hr style="border: 0; border-top: 1px solid #222;">
+            <p style="text-align: left; font-size: 0.9em; color: #ccc;">
+                1. Нажмите кнопку ниже.<br>
+                2. В открывшемся профиле MAX нажмите <b>"Отправить"</b>.<br>
+                3. Введите сумму в USDT и подтвердите перевод.
+            </p>
+            <a href="{pay_url}" class="btn">ОПЛАТИТЬ В MAX</a>
+            <p style="font-size: 0.7em; color: #444; margin-top: 30px;">ТРАНЗАКЦИЯ ЗАЩИЩЕНА V-RTX STUDIO</p>
         </div>
-
-<script>
-    function copyAndGo() {
-        // Берем адрес кошелька со страницы
-        var addr = document.getElementById("addr_text").innerText;
-        // Берем сумму (она у тебя там в HTML где-то выводится)
-        var amount = "{{ total_price }}"; // Flask подставит сюда реальную цифру
-
-        navigator.clipboard.writeText(addr);
-        
-        alert("Данные скопированы! Переходим к оплате на сумму: " + amount);
-
-        // Формируем динамическую ссылку
-        window.location.href = "https://max.ru/u/f9LHodD0cOKtoj9aZYXfR4p7Mi4KcG3JFut6tTZWK1SOfm0KYqb53mv6CLY;
-    }
-</script>
     </body>
     </html>
-"""
+    """
 
 import os
 

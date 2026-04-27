@@ -9,7 +9,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///vrtx_cloud.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-# Твой адрес-сейф (оставим его здесь как главную переменную)
+# Твой адрес-сейф
 MY_SAFE_ADDRESS = "https://max.ru/u/f9LHodD0cOKtoj9aZYXfR4p7Mi4KcG3JFut6tTZWK1SOfm0KYqb53mv6CLY"
 
 # Модель базы данных
@@ -21,12 +21,12 @@ class Payment(db.Model):
 
 @app.route('/')
 def index():
-    # Исправил тут: добавил кавычки вокруг ссылки
+    # Исправлено: добавлены кавычки вокруг ссылки
     return render_template('index.html', wallet_address=MY_SAFE_ADDRESS)
 
 @app.route('/pay/<int:amount>')
 def pay(amount):
-    # Прямая ссылка на твой профиль
+    # Прямая ссылка на твой профиль с картинкой
     pay_url = MY_SAFE_ADDRESS
     
     return f"""
@@ -35,7 +35,7 @@ def pay(amount):
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
-            body {{ background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 40px 20px; }}
+            body {{ background: #000; color: #fff; font-family: sans-serif; text-align: center; padding: 40px 20px; }}
             .card {{ max-width: 400px; margin: 0 auto; border: 1px solid #00FF00; padding: 30px; border-radius: 20px; background: #050505; }}
             .btn {{ display: block; width: 100%; padding: 18px; background: #00FF00; color: #000; text-decoration: none; border-radius: 10px; font-weight: bold; margin-top: 20px; font-size: 1.1em; }}
             .amount {{ font-size: 2.5em; color: #00FF00; margin: 20px 0; font-weight: bold; }}
@@ -45,7 +45,7 @@ def pay(amount):
         <div class="card">
             <div style="font-size: 0.8em; color: #00FF00; letter-spacing: 2px;">VRTX_SAFE SYSTEM</div>
             <h2 style="margin-top: 10px;">ОПЛАТА ОБУЧЕНИЯ</h2>
-            <div class="amount">{amount} РУБ.</div>
+            <div class="amount">{{amount}} РУБ.</div>
             <hr style="border: 0; border-top: 1px solid #222;">
             <p style="text-align: left; font-size: 0.9em; color: #ccc;">
                 1. Нажмите кнопку ниже.<br>
@@ -62,6 +62,6 @@ def pay(amount):
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    # Забираем порт от Render
+    # Порт для Render
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)

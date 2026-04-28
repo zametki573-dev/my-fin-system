@@ -20,34 +20,32 @@ def pay(amount):
         </style>
     </head>
     <body>
-        <div class="card">
-            <div style="font-size: 0.8em; color: #00FF00; opacity: 0.6;">VRTX_SAFE SYSTEM</div>
-            <h2>ПОДТВЕРЖДЕНИЕ</h2>
-            <div class="amount">{amount} РУБ.</div>
-            
-            <form action="/confirm" method="POST">
-                <input type="hidden" name="amount" value="{amount}">
-                <input type="text" name="name" placeholder="ВВЕДИТЕ ВАШЕ ИМЯ" required>
-                <button type="submit" class="btn">ПОДТВЕРДИТЬ И ОПЛАТИТЬ</button>
-            </form>
-            
-            <p style="font-size: 0.7em; color: #444; margin-top: 20px;">ДАННЫЕ БУДУТ ПЕРЕДАНЫ КУРАТОРУ</p>
-        </div>
-    </body>
-    </html>
-    """
+<div class="card">
+    <div style="font-size: 0.8em; color: #00FF00; opacity: 0.6;">VRTX_SAFE_SYSTEM</div>
+    <h2>ПОДТВЕРЖДЕНИЕ</h2>
+    <div class="amount">{amount} РУБ.</div>
+
+    <button class="btn" onclick="copyWallet()" style="background: #222; margin-bottom: 10px;">
+        1. СКОПИРОВАТЬ АДРЕС
+    </button>
+
+    <a href="https://60cek.net/obmen-sberbank-na-usdt-ton.html" target="_blank" style="text-decoration: none;">
+        <button class="btn">2. ПЕРЕЙТИ К ОПЛАТЕ</button>
+    </a>
+
+    <p style="font-size: 0.7em; color: #444; margin-top: 20px;">
+        СКОПИРУЙТЕ АДРЕС И ВСТАВЬТЕ ЕГО В ПОЛЕ "КОШЕЛЕК ДЛЯ ПОЛУЧЕНИЯ" НА САЙТЕ ОБМЕННИКА
+    </p>
+</div>
+
+<script>
+function copyWallet() {
+    navigator.clipboard.writeText('UQDwA26gZayasv2rTuQZ5YpfnmyfWSISXavpDUAmfz0S_9kp');
+    alert('Адрес скопирован! Теперь вставьте его на сайте обменника.');
+}
+</script>
 
 @app.route('/confirm', methods=['POST'])
-def confirm():
-    name = request.form.get('name')
-    amount = request.form.get('amount')
-    
-    # ВОТ ЗДЕСЬ Python "записывает в книжку"
-    print(f"ОПЛАТА: {name} на сумму {amount} руб.") 
-    # Сюда потом в одну строчку добавим отправку боту, когда оживим его.
-
-    # А теперь просто выкидываем его на твой MAX
-    return redirect("https://max.ru/u/f9LHodD0cOKtoj9aZYXfR4p7Mi4KcG3JFut6tTZWK1SOfm0KYqb53mv6CLY")
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))

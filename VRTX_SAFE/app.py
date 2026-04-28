@@ -1,11 +1,10 @@
-from flask import Flask, request, redirect
-import os
+from flask import Flask, request, os
 
 app = Flask(__name__)
 
 @app.route('/pay/<int:amount>')
 def pay(amount):
-    # Твой дизайн с формой ввода имени
+    # Твоя страница оплаты VRTX
     return f"""
     <!DOCTYPE html>
     <html>
@@ -14,38 +13,38 @@ def pay(amount):
         <style>
             body {{ background: #000; color: #fff; font-family: sans-serif; text-align: center; padding: 20px; }}
             .card {{ max-width: 400px; margin: 0 auto; border: 1px solid #00FF00; padding: 30px; border-radius: 20px; background: #050505; }}
-            input {{ width: 90%; padding: 15px; margin: 20px 0; border-radius: 10px; border: 1px solid #00FF00; background: #000; color: #fff; text-align: center; }}
-            .btn {{ display: block; width: 100%; padding: 18px; background: #00FF00; color: #000; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; text-decoration: none; }}
+            .btn {{ display: block; width: 100%; padding: 18px; background: #00FF00; color: #000; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; text-decoration: none; margin-top: 10px; }}
             .amount {{ font-size: 2em; color: #00FF00; margin-bottom: 10px; }}
         </style>
     </head>
     <body>
-<div class="card">
-    <div style="font-size: 0.8em; color: #00FF00; opacity: 0.6;">VRTX_SAFE_SYSTEM</div>
-    <h2>ПОДТВЕРЖДЕНИЕ</h2>
-    <div class="amount">{amount} РУБ.</div>
+        <div class="card">
+            <div style="font-size: 0.8em; color: #00FF00; opacity: 0.6;">VRTX_SAFE_SYSTEM</div>
+            <h2>ПОДТВЕРЖДЕНИЕ</h2>
+            <div class="amount">{amount} РУБ.</div>
 
-    <button class="btn" onclick="copyWallet()" style="background: #222; margin-bottom: 10px;">
-        1. СКОПИРОВАТЬ АДРЕС
-    </button>
+            <button class="btn" onclick="copyWallet()" style="background: #222;">
+                1. СКОПИРОВАТЬ АДРЕС
+            </button>
 
-    <a href="https://60cek.net/obmen-sberbank-na-usdt-ton.html" target="_blank" style="text-decoration: none;">
-        <button class="btn">2. ПЕРЕЙТИ К ОПЛАТЕ</button>
-    </a>
+            <a href="https://60cek.net/obmen-sberbank-na-usdt-ton.html" target="_blank" style="text-decoration: none;">
+                <button class="btn">2. ПЕРЕЙТИ К ОПЛАТЕ</button>
+            </a>
 
-    <p style="font-size: 0.7em; color: #444; margin-top: 20px;">
-        СКОПИРУЙТЕ АДРЕС И ВСТАВЬТЕ ЕГО В ПОЛЕ "КОШЕЛЕК ДЛЯ ПОЛУЧЕНИЯ" НА САЙТЕ ОБМЕННИКА
-    </p>
-</div>
+            <p style="font-size: 0.7em; color: #444; margin-top: 20px;">
+                СКОПИРУЙТЕ АДРЕС И ВСТАВЬТЕ ЕГО В ПОЛЕ "КОШЕЛЕК ДЛЯ ПОЛУЧЕНИЯ" НА САЙТЕ ОБМЕННИКА
+            </p>
+        </div>
 
-<script>
-function copyWallet() {
-    navigator.clipboard.writeText('UQDwA26gZayasv2rTuQZ5YpfnmyfWSISXavpDUAmfz0S_9kp');
-    alert('Адрес скопирован! Теперь вставьте его на сайте обменника.');
-}
-</script>
-
-@app.route('/confirm', methods=['POST'])
+        <script>
+        function copyWallet() {{
+            navigator.clipboard.writeText('UQDwA26gZayasv2rTuQZ5YpfnmyfWSISXavpDUAmfz0S_9kp');
+            alert('Адрес скопирован! Теперь вставьте его на сайте обменника.');
+        }}
+        </script>
+    </body>
+    </html>
+    """
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))

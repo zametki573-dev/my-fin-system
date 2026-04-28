@@ -1,10 +1,15 @@
-from flask import Flask, request, os
+import os
+from flask import Flask, request
 
 app = Flask(__name__)
 
+# Чтобы по главной ссылке не выдавало ошибку
+@app.route('/')
+def home():
+    return "VRTX_SAFE_SYSTEM: ONLINE"
+
 @app.route('/pay/<int:amount>')
 def pay(amount):
-    # Твоя страница оплаты VRTX
     return f"""
     <!DOCTYPE html>
     <html>
